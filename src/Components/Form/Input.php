@@ -39,6 +39,7 @@ class Input extends Component
         public bool $alwaysEnableAppend = false,
         public string $prependIcon = '',
         public string $appendIcon = '',
+        public bool $unmaskable = false,
     ) {
         if ($this->date === null && $this->type === 'date') {
             $this->date = static::$defaultFlatpickrOptions;

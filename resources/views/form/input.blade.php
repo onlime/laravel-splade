@@ -14,7 +14,7 @@
     <label class="block">
         @includeWhen($label, 'splade::form.label', ['label' => $label])
 
-        <div class="flex rounded-md border border-gray-300 shadow-sm">
+        <div class="relative flex rounded-md border border-gray-300 shadow-sm">
             @if($hasPrepend)
                 <span :class="{ 'opacity-50': inputScope.disabled && @json(!$alwaysEnablePrepend) }" class="inline-flex items-center space-x-1 rounded-l-md border border-t-0 border-b-0 border-l-0 border-gray-300 bg-gray-50 px-3 text-gray-500">
                     @if($prependIcon)<x-icon :name="$prependIcon" class="w-5 h-5" />@endif
@@ -35,6 +35,7 @@
             ])->when(!$flatpickrOptions, fn($attributes) => $attributes->merge([
                 'v-model' => $vueModel(),
             ])) }}
+                ::type="showPassword ? 'text' : '{{ $type }}'"
             />
 
             @if($hasAppend)
@@ -42,6 +43,15 @@
                     @if($appendIcon)<x-icon :name="$appendIcon" class="w-5 h-5" />@endif
                     @if($append)<span>{!! $append !!}</span>@endif
                 </span>
+            @elseif($type === 'password' && $unmaskable)
+                <div
+                    class="absolute inset-y-0 right-0 flex cursor-pointer items-center pr-3"
+                    ::class="showPassword ? 'text-yellow-500 dark:text-orange-500' : 'text-gray-400'"
+                    ::title="showPassword ? 'Mask password' : 'Show password'"
+                    @click="showPassword = !showPassword"
+                >
+                    <x-heroicon-o-eye class="h-5 w-5" />
+                </div>
             @endif
         </div>
     </label>

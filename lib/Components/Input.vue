@@ -34,7 +34,8 @@ export default {
             disabled: false,
             element: null,
             flatpickrInstance: null,
-            observer: null
+            observer: null,
+            showPassword: false,
         };
     },
 
